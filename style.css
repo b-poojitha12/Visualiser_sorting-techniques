@@ -1,0 +1,234 @@
+:root {
+    --bg-color: #0f172a;
+    --panel-bg: rgba(30, 41, 59, 0.7);
+    --panel-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    
+    --bar-default: #3b82f6;
+    --bar-compare: #eab308;
+    --bar-swap: #ef4444;
+    --bar-sorted: #22c55e;
+    
+    --btn-primary: #3b82f6;
+    --btn-primary-hover: #2563eb;
+    --btn-secondary: #475569;
+    --btn-secondary-hover: #334155;
+    --btn-play: #10b981;
+    --btn-play-hover: #059669;
+    --btn-danger: #ef4444;
+    --btn-danger-hover: #dc2626;
+    
+    --border-radius: 8px;
+    --transition-speed: 0.2s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    gap: 20px;
+}
+
+.glass-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(to right, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.controls-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.control-group label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+select, input[type="range"], input[type="text"] {
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    background: var(--bg-color);
+    border: 1px solid var(--panel-border);
+    color: var(--text-primary);
+    outline: none;
+    font-family: inherit;
+}
+
+.input-row {
+    display: flex;
+    gap: 8px;
+}
+
+input[type="text"] {
+    width: 150px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), transform 0.1s;
+    color: white;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn.primary { background-color: var(--btn-primary); }
+.btn.primary:hover:not(:disabled) { background-color: var(--btn-primary-hover); }
+
+.btn.secondary { background-color: var(--btn-secondary); }
+.btn.secondary:hover:not(:disabled) { background-color: var(--btn-secondary-hover); }
+
+.btn.play { background-color: var(--btn-play); }
+.btn.play:hover:not(:disabled) { background-color: var(--btn-play-hover); }
+
+.btn.danger { background-color: var(--btn-danger); }
+.btn.danger:hover:not(:disabled) { background-color: var(--btn-danger-hover); }
+
+.visualization-container {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    padding: 20px 0;
+    position: relative; 
+}
+
+.bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    /* Fluid structure applied directly to initial layout */
+    flex: 1; 
+    max-width: 60px;
+    min-width: 25px;
+}
+
+.bar {
+    width: 100%;
+    background-color: var(--bar-default);
+    border-radius: 4px 4px 0 0;
+    transition: height var(--transition-speed) ease-in-out, background-color var(--transition-speed) ease;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.bar.comparing { background-color: var(--bar-compare); box-shadow: 0 0 12px var(--bar-compare); }
+.bar.swapping { background-color: var(--bar-swap); box-shadow: 0 0 12px var(--bar-swap); }
+.bar.sorted { background-color: var(--bar-sorted); box-shadow: 0 0 12px var(--bar-sorted); }
+
+.bar-value {
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.info-panel {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.info-item .label {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.info-item .value {
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.explanation-panel {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.explanation-panel strong {
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .bar { width: 15px; }
+    .bar-value { display: none; }
+    .info-panel { flex-direction: column; align-items: center; }
+}
